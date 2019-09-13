@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui">
+     
+    <h:head>
+        <style>
+            body {
+                background-image: url("resources/background1.jpg");
+                background-size: cover;
+            }
+            .zipBox{
+                position: absolute;
+                top: 60%;
+                left: 42%;
+            }
+            .cmdCenter{
+                position: absolute;
+                top: 65%;
+                left: 46%;
+            }
+        </style>
+    </h:head>
+ 
+    <h:body>
+        <h:form>
+            <p:panel style="text-align: center; width: 70%; margin: 0 auto; margin-top: 15%; opacity: 0.5; padding-top: 25%"/>
+            <h:outputText style="position: absolute; top: 35%; left: 30%; font-size: 500%" value="Let's go to the movies!"/>
+            <h:outputText style="position: absolute; top: 48%; left: 38%; font-size: 200%" value="Enter your zip code to get started:"/>
+            <div class="zipBox">
+                <p:inputMask id="zip" value="#{theaterBean.zip}" mask="99999" title="Please enter 5-digit zip code">
+                    <p:ajax event="keyup" delay="50" update="searchBtn"/>
+                </p:inputMask>
+                <p:tooltip id="tip" for="zip" showEffect="focus" hideEffect="fade"/>
+            </div>
+            <div class="cmdCenter">
+                <p:commandButton id= "searchBtn" value="Search" action="#{theaterBean.theaterSelect()}" disabled="#{!theaterBean.enabled()}" />
+            </div>
+        </h:form>
+    </h:body>
+</html>
+

@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Payment</title>
+        <style>
+            body {
+                background-image: url("resources/background1.jpg");
+                background-size: cover;
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <h:form>
+            <p:panel header="Payment" style="text-align: center; width: 30%; margin: 0 auto;" >
+                <h:panelGrid columns="2" cellpadding="10">
+                    <p:outputLabel for="tickets" value="Number of Ticket:"/>
+                    <p:spinner id="tickets" value="#{theaterBean.tickets}" size="2" min="1">
+                        <p:ajax event="change" delay="50" update="total"/>
+                    </p:spinner>
+                    <p:outputLabel for="total" value ="Total:"/>
+                    <h:outputText id="total" value="#{theaterBean.totalCost()}" style="font-weight: bolder;"/>
+                    <p:outputLabel for="name" value="Name:"/>
+                    <p:inputText id="name" value="#{theaterBean.name}" size="20" >
+                        <p:ajax event="keyup" delay="50" update="submit"/>
+                    </p:inputText>
+                    <p:outputLabel for="creditcard" value="Credit Card:"/>
+                    <p:inputMask id="creditcard" value="#{theaterBean.creditCard}" mask="9999-9999-9999-9999" size="16">
+                        <p:ajax event="keyup" delay="50" update="submit"/>
+                    </p:inputMask>
+                    <h:panelGrid columns="2" cellpadding="5">
+                        <p:outputLabel for="expdate" value="Exp:"/>
+                        <p:inputMask id="expdate" value="#{theaterBean.date}" mask="99/99" size="2">
+                            <p:ajax event="keyup" delay="50" update="submit"/>
+                        </p:inputMask>
+                    </h:panelGrid>
+                    <h:panelGrid columns="2" cellpadding="5">
+                        <p:outputLabel for="cvv" value="CVV:"/>
+                        <p:inputMask id="cvv" value="#{theaterBean.cvv}" mask="999" size="2">
+                            <p:ajax event="keyup" delay="50" update="submit"/>
+                        </p:inputMask>
+                    </h:panelGrid>
+                </h:panelGrid>
+            </p:panel>
+            <p:commandButton id="submit" value="Submit" action="#{theaterBean.goToConfirmation()}" style="left: 47%;" disabled="#{!theaterBean.validCard()}" />
+        </h:form>
+    </h:body>
+</html>
+
